@@ -1,0 +1,18 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "Login"
+
+block content
+	div.container.container-show.col-lg-offset-2.col-lg-8
+		div.page-header
+			h1 Log in to your account
+		div.login-form
+			+displayServerErrors(errorMessages)
+			form(method="post")
+				+input("Username", "username", errorMessages, defaultValues, {required: true, placeholder: "Enter your username"})
+				+input("Password", "password", errorMessages, defaultValues, {required: true, placeholder: "Enter your password", type: "password"})
+				button.btn.btn-primary.submit(type="submit") Login
+				br
+				br
+				a(href="/register") Don't have an account? Register.

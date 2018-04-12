@@ -1,0 +1,49 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title= school.name
+
+block content
+	div.container.container-show
+		div.page-header
+			h1= school.name
+				small.text-muted.ml-5(style="font-size: 2.5rem; margin-left: 1rem")= school.location
+
+		div
+			+displayServerErrors(errorMessages)
+			h3 Stats
+			table.table
+				tr.notopborder
+					th Classes
+					td= school.classes.length
+				tr
+					th Teachers
+					td= school.teachers.length
+				tr
+					th Date Created
+					td= new Date(school.dateCreated).toLocaleTimeString(localizationString, dateOptions)
+				tr
+					th Domain Restrictions
+						if school.domains.length < 0
+							td
+								strong None.
+						else
+							td= school.domains
+			br
+
+			h3 Recent Discussions
+				+discussion("To be determined")
+			h3 Teachers
+				a.btn.btn-success(role="button", href=("/teacher/new?schoolID=" + school._id), style="margin-left: 1em")
+					span.glyphicon.glyphicon-plus(style="margin-right: .5em")
+					span Add Teacher
+			div(style="display: grid; grid-template-columns: auto auto auto auto auto;")
+				each teacher in teachers
+					+teacherCard(teacher)
+			h3 Classes
+				a.btn.btn-success(role="button", href=("/class/new?schoolID=" + school._id), style="margin-left: 1em")
+					span.glyphicon.glyphicon-plus(style="margin-right: .5em")
+					span Add Class
+				div(style="display: grid; grid-template-columns: auto auto auto auto auto;")
+					each clas in classes
+						+classCard(clas)

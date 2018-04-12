@@ -1,0 +1,16 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "New School"
+
+block content
+	div.container.container-show
+		div.page-header
+			h1= "Add a New School"
+		div
+			+displayServerErrors(errorMessages)
+			form(method="post")
+				+input("School Name", "name", errorMessages, defaultValues, {required: true, placeholder: "Enter the school's name (Ex. Monte Vista High School)"})
+				+input("School Location", "location", errorMessages, defaultValues, {placeholder: "Enter the school's location if applicable"})
+				+input("Signup Domain Restriction", "domains", errorMessages, defaultValues, {placeholder: "students.srvusd.net, sruvsd.net"})
+				button.btn.btn-primary.submit(type="submit") Add

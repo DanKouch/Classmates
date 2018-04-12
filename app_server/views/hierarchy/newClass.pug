@@ -1,0 +1,16 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "New Teacher"
+
+block content
+	div.container.container-show
+		div.page-header
+			h1= "Add a New Teacher to " + school.name
+		div
+			+displayServerErrors(errorMessages)
+			form(method="post")
+				+dropdownInput("Teacher Name", "teacherID", errorMessages, defaultValues, teachers.map((a) => a.name), {values: teachers.map((a) => a._id)})
+				+input("Subject", "subject", errorMessages, defaultValues, {required: true})
+				+input("Period", "period", errorMessages, defaultValues, {required: true, type: "number"})
+				button.btn.btn-primary.submit(type="submit") Add

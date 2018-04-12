@@ -1,0 +1,6 @@
+extends emailTemplate.pug
+
+block content
+	p Hi, #{user.username} 
+	p Welcome to classmates, a tool you can use to connect to members of your school, share resources, and discuss current assignments. To complete your account registration, please click on the link below or copy and paste it into your browser, but make sure you are logged into your account beforehand:
+	a(href=("http://" + config.location+"/verify?verification="+user.emailVerification))=("http://"+ config.location+"/verify?verification="+user.emailVerification)

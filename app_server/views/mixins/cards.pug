@@ -1,0 +1,63 @@
+mixin schoolCard(school)
+	div.card(style="width:25rem")
+		div.card-body
+			h4.card-title(style="margin-bottom: 1.3rem")
+				if school.confirmed /*Is member of school*/
+					a(href=("/school/?id="+school._id))= school.name
+				else
+					a=school.name
+			h6.card-subtitle.mb-2.text-muted= (school.location ? school.location : "") + " "
+				if school.confirmed
+					span.label.label-danger Unconfirmed
+				else
+					span.badge.badge-danger Pending
+			div.card-text
+				br
+				p #{school.classes.length} Classes   
+					
+				p #{school.teachers.length} Teachers
+					
+			
+				br
+				if school.domains.length > 0
+					each domain in school.domains
+						p.text-muted(style="line-height: 10px")= domain
+				else
+					li
+						i No domain restriction.
+				br
+		
+			if !school.confirmed
+				a.btn.btn-warning(role="button", href=("/school/confirm?id="+school._id), style="color: white; width: 100%") Add Confirmation
+			else
+				if true /*is Member of School*/
+					a.btn.btn-success(style="width: 100%", role="button", href="#") Can Enroll in School
+				else
+					if true /*can join*/
+						a.btn.btn-primary(style="width: 100%", role="button", href="#") Join School
+					else
+						button.btn.btn-disabled(style="width: 100%", disabled="true") Incompatible Email Domain
+
+
+mixin teacherCard(teacher)
+	div.card(style="width:20rem")
+		div.card-body(style="padding-bottom: 0.6rem")
+			h4.card-title()
+				a(href=("/teacher?id=" + teacher._id), style="color: black;")= teacher.name
+			h6.card-subtitle.mb-2.text-muted Teacher
+		
+			//if teacher.classes.length > 1
+				each clas in teacher.classes
+					a(href="http://www.google.com").text-muted= clas
+			//else
+				i.text-muted No registered classes.
+
+
+mixin classCard(clas, hideTaughtBy)
+	div.card(style="width:20rem")
+		div.card-body
+			a(href="/class?id="+clas._id, style="color: black")
+				h4.card-title(style="margin-bottom: 1.3rem")= clas.subject
+			if hideTaughtBy == false
+				h6.card-subtitle.mb-1.text-muted= "Taught by " + clas.teacher.name
+			h6.card-subtitle.mb-1.text-muted(style="margin-bottom: 0.1em")= "Period " + clas.period

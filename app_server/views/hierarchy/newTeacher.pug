@@ -1,0 +1,14 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "New Teacher"
+
+block content
+	div.container.container-show
+		div.page-header
+			h1= "Add a New Teacher to " + school.name
+		div
+			+displayServerErrors(errorMessages)
+			form(method="post")
+				+input("Teacher Name", "name", errorMessages, defaultValues, {required: true, placeholder: "Enter the teacher's name"})
+				button.btn.btn-primary.submit(type="submit") Add

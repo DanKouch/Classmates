@@ -1,0 +1,29 @@
+mixin navbar(user)
+	nav.navbar.navbar-custom
+		div.container-fluid
+			div.navbar-header
+				a.navbar-brand(href="/home") Classmates
+			ul.nav.navbar-nav.navbar-left
+				li
+					a(href="/schools") Find Schools
+			if user
+				ul.nav.navbar-nav.navbar-right
+					li
+						a(href="/profile")= user.username
+							span.glyphicon.glyphicon-user(style="margin-left: .5em")
+					li
+						a(href="/messages") Messages
+					li
+						a(href="/logout")
+							i Logout
+			else
+				ul.nav.navbar-nav.navbar-right
+					li
+						a(href="/login") Login
+					li
+						a(href="/register") Register
+	if user
+		if user.emailVerified == false
+			div.container
+				div.alert.alert-danger Your email has not been confirmed. You must confirm your email before you can join a school. 
+					a(href="/resend-verification") Re-send verification email.

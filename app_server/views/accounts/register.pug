@@ -1,0 +1,20 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "Registration"
+
+block content
+	div.container.container-show.col-lg-offset-2.col-lg-8
+		div.page-header
+			h1 Register New Account
+		div.login-form
+			+displayServerErrors(errorMessages)
+			form.form-validate(method="post")
+				+input("Username", "username", errorMessages, defaultValues, {required: true, placeholder: "Enter a username", minLength: 5})
+				+input("Password", "password", errorMessages, defaultValues, {required: true, placeholder: "Enter a password", minLength: 6, type: "password"})
+				+input("Email", "email", errorMessages, defaultValues, {required: true, placeholder: "Enter your email address", minLength: 6, type: "email"})
+				
+				button.btn.btn-primary.submit(type="submit") Register
+				br
+				br
+				a(href="/login") Already have an account? Login.

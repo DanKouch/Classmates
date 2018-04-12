@@ -1,0 +1,32 @@
+mixin displayServerErrors(errorMessages)
+	if errorMessages && errorMessages.server && (errorMessages.server != "")
+				div.alert.alert-danger
+					strong= (errorMessages && errorMessages.server ? errorMessages.server : "")
+
+mixin input(prettyName, codeName, errorMessages, defaultValues, settings)
+	div.form-group(class=(errorMessages && errorMessages[codeName]) ? "has-error" : "")
+		label(for=(codeName + "Input"))= (prettyName+ ((settings && settings.note) ? (" ("+settings.note+")") : ""))
+		div(class=(settings && settings.postfix ? "input-group" : ""))
+			block inputArea
+				input.form-control(id=(codeName + "Input"), minlength=((settings && settings.minLength) ? settings.minLength : 0), maxLength=((settings && settings.maxLength) ? settings.maxLength : 500), required=(settings && settings.required), name=(codeName), type=((settings && settings.type) ? settings.type : "text"), placeholder=(settings && settings.placeholder ? settings.placeholder : ""), value=((defaultValues && defaultValues[codeName]) ? defaultValues[codeName] : ""))
+			if settings && settings.postfix && true
+				span.input-group-addon= settings.postfix
+		div.help-block= errorMessages && errorMessages[codeName] ? errorMessages[codeName] : ""
+
+
+mixin dropdownInput(prettyName, codeName, errorMessages, defaultValues, options, settings)
+	div.form-group(class=(errorMessages && errorMessages[codeName]) ? "has-error" : "")
+		label(for=(codeName + "Input"))= (prettyName+ ((settings && settings.note) ? (" ("+settings.note+")") : ""))
+		select.form-control(id=(codeName + "Input"), name=(codeName), value=((defaultValues && defaultValues[codeName]) ? defaultValues[codeName] : ""))
+			each option, i in options
+				if settings.values
+					option(value=settings.values[i])= option
+				else
+					option= option
+		div.help-block= errorMessages && errorMessages[codeName] ? errorMessages[codeName] : ""
+
+mixin textAreaInput(prettyName, codeName, errorMessages, defaultValues, settings)
+	div.form-group(class=(errorMessages && errorMessages[codeName]) ? "has-error" : "")
+		label(for=(codeName + "Input"))= (prettyName+ ((settings && settings.note) ? (" ("+settings.note+")") : ""))
+		textarea.form-control(id=(codeName + "Input"), name=(codeName), required=(settings && settings.required), value=((defaultValues && defaultValues[codeName]) ? defaultValues[codeName] : ""), placeholder=(settings && settings.placeholder ? settings.placeholder : ""))
+		div.help-block= errorMessages && errorMessages[codeName] ? errorMessages[codeName] : ""

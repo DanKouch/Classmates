@@ -1,0 +1,22 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "Find Schools"
+
+block content
+	div.container.container-show
+		h1.page-header Find Schools
+		form.form.form-validate(method="get", style="padding: 1em")
+			+input("Search", "query", errorMessages, defaultValues, {required: true, placeholder: "Enter search query"})
+			button.btn.btn-primary.submit(type="submit") Search for Schools
+			+displayServerErrors(errorMessages)
+		div(style="display: grid; grid-template-columns: auto auto auto auto;")
+			if schools
+				each school in schools
+					+schoolCard(school)
+				if schools.length < 1
+					p
+						i Could not find any schools matching this query.
+				p.card Dont see the school you want? Click 
+					a(href="/school/new") here
+					span  to request/create it.

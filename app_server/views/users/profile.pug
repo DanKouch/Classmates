@@ -1,0 +1,33 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "Home"
+
+block content
+	div.container.container-show
+		h1.page-header #{user.username}'s Profile
+		em Note: We will not share any of your personal information with other users, except your username, and only if you make posts.
+		br
+		br
+
+		table.table
+			tr.notopborder
+				th Username
+				td= user.username
+			tr
+				th Email
+				td= user.email
+					if user.emailVerified
+						strong.text-success  (Verified)
+					else
+						strong.text-danger.strong  (Not Verified)
+			tr
+				th Date Joined
+				td= user.dateJoined.toLocaleTimeString(localizationString, dateOptions)
+			tr
+				th Website Role
+				if user.role == "administrator"
+					td
+						strong.text-danger Administrator
+				else
+					td User

@@ -1,0 +1,6 @@
+extends emailTemplate.pug
+
+block content
+	p Hi, #{user.username} 
+	p You are receiving this email to confirm that you are the owner of this email. If you did not recently click to resend an email verification message on Classmates, please ignore this message. If you did, please click the link below to verify your email:
+	a(href=("http://" + config.location+"/verify?verification="+user.emailVerification))=("http://"+ config.location+"/verify?verification="+user.emailVerification)

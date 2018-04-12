@@ -1,0 +1,17 @@
+extends ../boilerplate.pug
+
+block vars
+	- var title = "Home"
+
+block content
+	div.container.container-show
+		h1.page-header Welcome, #{user.username}
+		.row
+			.col.col-lg-6
+				h3 Recent Messages
+				+discussion("To Be Determined")
+			.col.col-lg-6
+				h3 Relevant Conversations
+				+discussion("To be determined")
+
+		
